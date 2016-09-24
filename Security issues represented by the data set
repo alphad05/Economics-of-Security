@@ -1,0 +1,13 @@
+There will be 6.4 billion IoT used worldwide in the end of 2016, with 5.5 million new products connecting daily. By 2020, the number of connected things is projected to jump to 20.8 billion. IoT devices are everywhere in our lives nowadays. However the concept is relatively new and there are a lot of security flaws, that attackers are regularly taking advantage of. 
+
+The provided datasets can be divided into two scopes. The first one is the data from honeypots, how they were approached by attackers and how attackers were intended to use them afterwards. The second one is ASK TE PROFESSOR
+
+The first chunk of data represents attacks which represent the following security issues:
+
+	* Users do not change the default login credentials. Which allows attackers to easily gain access to the device
+	* Some devices do not have any authentication mechanisms in place with hope that only legitimate users can access them
+	* Devices use unencrypted network services
+	* Users do not apply vendor patches and use outdated software
+	* vendors are not patching  vulnerabilities in old devices. However they are still widely used.
+
+After the initial exploitation phase hackers might use vulnerable devises for different purposes. The ones that are represented by the data sets are adding exploited devices  to the botnet, using them for sending spam emails or just installing a backdoor in order to have access later.
