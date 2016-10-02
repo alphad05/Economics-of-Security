@@ -1,0 +1,82 @@
+library(plyr)
+library(data.table)
+
+ipdata <- fread("ip_device_2M-csv.csv")
+unauthorized <- ipdata[grepl("Unauthorized",ipdata$banner)]  #stores the information for the scans that had unauthorized in their banner
+unauthServices <- count(unauthorized,"service")
+unauthServices
+authorized <- ipdata[grepl("authorized",ipdata$banner)]
+
+
+//create data for each service
+ftpdata <- ipdata[ipdata$service=="ftp"]
+httpdata <- ipdata[ipdata$service=="http"]
+sshdata <- ipdata[ipdata$service=="ssh"]
+ssldata <- ipdata[ipdata$service=="ssl"]
+titledata <- ipdata[ipdata$service=="title"]
+unknowndata <- ipdata[ipdata$service=="unknown"]
+vncdata <- ipdata[ipdata$service=="vnc"]
+vulndata <- ipdata[ipdata$service=="vuln"]
+x509data <- ipdata[ipdata$service=="X509"]
+
+//get unauthorized access data for each service
+ftpunauthorized <- ftpdata[!grepl("You are user number",ftpdata$banner)]
+ftpuni <- count(ftpunauthorized,"host")
+print(dim(ftpuni))
+ftpuni <- count(ftpunauthorized,c("device","host"))
+ftpuniq <- print(ftpuni$device)
+print(ftpuniq)
+
+httpunauthorized <- httpdata[grepl("401 Unauthorized",httpdata$banner)|grepl("403 Forbidden",httpdata$banner)]
+httpuni <- count(httpunauthorized,"host")
+print(dim(httpuni))
+httpuni <- count(httpunauthorized,c("device","host"))
+httpuniq <- print(httpuni$device)
+count(httpuniq)
+
+titleunauthorized <- titledata[grepl("Unauthorized", titledata$banner)]
+titleuni <- count(titleunauthorized,"host")
+print(dim(titleuni))
+titleuni <- count(titleunauthorized,c("device","host"))
+titleuniq <- print(titleuni$device)
+count(titleuniq)
+
+unknownunauthorized <- unknowndata[grepl("Unauthorized",unknowndata$banner)|grepl("login",unknowndata$banner)]
+unknownuni <- count(unknownunauthorized,"host")
+print(dim(unknownuni))
+unknownuni <- count(unknownunauthorized,c("device","host"))
+unknownuniq <- print(unknownuni$device)
+count(unknownuniq)
+
+
+//get authorized access data
+ftpauthorized <- ftpdata[grepl("You are user number",ftpdata$banner)]
+ftpuni <- count(ftpauthorized,"host")
+print(dim(ftpuni))
+ftpuni <- count(ftpauthorized,c("device","host"))
+ftpuniq <- print(ftpuni$device)
+count(ftpuniq)
+
+httpauthorized <- httpdata[grepl("200 OK",httpdata$banner)]
+httpuni <- count(httpauthorized,"host")
+print(dim(httpuni))
+httpuni <- count(httpauthorized,c("device","host"))
+httpuniq <- print(httpuni$device)
+count(httpuniq)
+
+titleauthorized <- titledata[grepl("Authorized", titledata$banner)]
+titleuni <- count(titleauthorized,"host")
+print(dim(titleuni))
+titleuni <- count(titleauthorized,c("device","host"))
+titleuniq <- print(titleuni$device)
+count(titleuniq)
+
+unknownauthorized <- unkowndata[grepl("Unauthorized",unknowndata$banner)]
+unknownuni <- count(unknownauthorized,"host")
+print(dim(unknownuni))
+unknownuni <- count(unknownauthorized,c("device","host"))
+unknownuniq <- print(unknownuni$device)
+count(unknownuniq)
+
+
+
