@@ -55,3 +55,35 @@ ff <- table(honeypots$V6)
 ff <- as.data.frame(ff)
 head(ff$Freq==1,20)
 head(subset(ff,ff$Freq==1,"Var1"),20)
+
+write(vendors[2:nrow(vendors),],file = "G:\\Economics of security\\vendors")
+
+vendmeg <- merge(vendPop,cts[which(cts$x %in% vendPop$x),],"x", all=TRUE)
+
+f2 <- file("G:\\Economics of security\\vendor_data.csv")
+
+write.csv(as.data.frame(vendmeg),file = f2)
+options("scipen"=999, "digits"=1)
+vendPop$breachProbability <- ((vendPop$freq/vendPop$count) * 100)
+
+boxplot(round(vendPop$breachProbability,0),horizontal = TRUE, axes = FALSE, staplewex = 1)
+
+text(x=fivenum(round(vendPop$breachProbability,0)), labels =fivenum(round(vendPop$breachProbability,0)), y=1.25)
+
+cta <- count(iot$maker)
+
+cts <- cta[with(cta,order(-freq)),]
+
+ctsbanner <- count(iot$banner)
+
+ctsbanner <- ctsbanner[with(ctsbanner,order(-freq)),]
+
+vendPop$vendor <- as.character(vendPop$vendor)
+
+DahuaD <- c("Dahua",781227,311294,40)
+
+vendPop <- rbind(vendPop,DahuaD)
+
+write.table(as.data.frame(vendPop),"G:\\Economics of security\\vendors_breach_probability.csv", sep = "\t")
+
+vendPop <- read.csv("G:\\Economics of security\\vendors_breach_probability.csv",sep = "\t")
